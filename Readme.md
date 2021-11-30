@@ -5,9 +5,6 @@
 <br>
 
 ---
-<img src="#" />
-
----
 ## 🌟 Tecnologias 
 
 Projeto foi desenvolvido com as seguintes tecnologias

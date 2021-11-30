@@ -42,14 +42,6 @@ p {
   color: white !important;
 }
 
-.navfixa {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index: 999;
-  margin-bottom: 60px;
-}
-
 .card-body {
   height: 300px;
 }

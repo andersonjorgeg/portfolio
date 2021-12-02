@@ -4,12 +4,38 @@
   max-width: 20%;
   border-radius: 50%;
 }
+
+.area-principal {
+  background-color: #027368;
+}
+
 .corPrimaria {
-  background-color: #81a291;
+  background-color: #027368;
 }
 .corSecundaria {
   background-color: #2c3e50;
 }
+
+.corTerciaria {
+  background-color: #9c9a964f;
+}
+
+.corBotão {
+  background-color: #2c3e50;
+  color: #fff;
+}
+
+.menu {
+  border-radius: 3px !important; 
+}
+
+.menu:hover {
+  background-color: #fff !important;
+  color: #2c3e50 !important;
+  transition: 0.5s;
+}
+
+
 p {
   font-family: 'helvetica Neue', Helvetica, Arial, sans-serif;
   color: black !important;
@@ -35,7 +61,7 @@ p {
   padding-bottom: 20px;
   text-transform: uppercase;
   font-weight: 700;
-  color: #18bc9c;
+  color: #027368;
 }
 
 .textosBrancos {

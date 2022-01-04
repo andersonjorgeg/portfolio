@@ -7,6 +7,15 @@
 
 .area-principal {
   background-color: #027368;
+  background-image: url(../img/programacao.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  filter: sepia(0.2);
+}
+
+.area-principal > .container:not(img) {
+  filter: sepia(0);
 }
 
 .corPrimaria {
@@ -70,4 +79,8 @@ p {
 
 .card-body {
   height: 300px;
+}
+
+.negrito {
+  font-weight: 700;
 }

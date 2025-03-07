@@ -84,7 +84,5 @@ cd portfolio
 
 ---
 
-Desenvolvido por Anderson Jorge, 2023.
+Desenvolvido por Anderson Jorge, 2025.
 ```
-
-Este README explica detalhadamente como o projeto foi desenvolvido, com foco especial na implementação dos princípios SOLID na arquitetura do código. Inclui uma explicação de cada princípio SOLID e como foi aplicado no projeto, além de fornecer informações sobre a estrutura do projeto, tecnologias utilizadas e instruções para execução.

@@ -1,17 +1,40 @@
 import { BaseComponent } from './base-component.js';
 
+/**
+ * Componente responsável pela seção de experiência e formação do portfólio
+ * Herda funcionalidades básicas do BaseComponent
+ */
 export class ExperienceComponent extends BaseComponent {
   constructor(selector) {
     super(selector);
+    
+    // Objeto centralizado de classes CSS para facilitar manutenção
+    this.classes = {
+      section: "py-20 bg-white",
+      container: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8",
+      grid: "grid grid-cols-1 md:grid-cols-2 gap-16",
+      sectionTitle: "text-3xl font-bold text-gray-900 mb-8",
+      itemsContainer: "space-y-12",
+      timelineItem: {
+        wrapper: "relative pl-8 border-l-2",
+        activeBorder: "border-accent",
+        inactiveBorder: "border-gray-200",
+        dot: "absolute -left-2 top-0 w-4 h-4 rounded-full",
+        activeDot: "bg-accent",
+        inactiveDot: "bg-gray-200",
+        header: "mb-1 flex flex-col sm:flex-row items-start sm:items-center",
+        title: "text-xl font-bold text-gray-900",
+        period: "sm:ml-auto text-sm text-gray-500 mt-1 sm:mt-0",
+        company: "text-gray-600 mb-2",
+        companyLink: "text-accent mb-2 hover:text-gray-600 transition-colors animate-pulse",
+        description: "text-gray-600"
+      },
+      coursesList: "text-gray-600 space-y-2",
+      courseLink: "text-accent hover:text-gray-600 transition-colors animate-pulse"
+    };
+    
+    // Array com dados de experiência profissional
     this.experiences = [
-      /* {
-        title: "Desenvolvedor Frontend",
-        period: "2021 - Atual",
-        company: "Freelancer",
-        description: "Desenvolvimento de aplicações web responsivas utilizando React, TypeScript e outras tecnologias modernas. Implementação de interfaces de usuário seguindo princípios de UX/UI e boas práticas de desenvolvimento.",
-        active: true,
-        link: "https://example.com/portfolio"
-      }, */
       {
         title: "Estágio em Desenvolvimento Web",
         period: "2022",
@@ -22,6 +45,7 @@ export class ExperienceComponent extends BaseComponent {
       }
     ];
 
+    // Array com dados de formação acadêmica e cursos
     this.education = [
       {
         title: "Análise e Desenvolvimento de Sistemas",
@@ -44,69 +68,101 @@ export class ExperienceComponent extends BaseComponent {
     ];
   }
 
+  /**
+   * Renderiza a seção de experiência profissional
+   * @returns {string} HTML da seção de experiência
+   */
+  renderExperienceSection() {
+    return `
+      <div>
+        <h2 class="${this.classes.sectionTitle}">Experiência</h2>
+        
+        <div class="${this.classes.itemsContainer}">
+          ${this.experiences.map(exp => this.renderExperienceItem(exp)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Renderiza a seção de formação acadêmica
+   * @returns {string} HTML da seção de formação
+   */
+  renderEducationSection() {
+    return `
+      <div>
+        <h2 class="${this.classes.sectionTitle}">Formação</h2>
+        
+        <div class="${this.classes.itemsContainer}">
+          ${this.education.map(edu => this.renderEducationItem(edu)).join('')}
+        </div>
+      </div>
+    `;
+  }
+
+  /**
+   * Método principal que monta toda a estrutura HTML da seção
+   * @returns {string} HTML completo da seção de experiência e formação
+   */
   getTemplate() {
     return `
-      <section class="py-20 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <!-- Experiência -->
-            <div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-8">Experiência</h2>
-              
-              <div class="space-y-12">
-                ${this.experiences.map(exp => this.renderExperienceItem(exp)).join('')}
-              </div>
-            </div>
-            
-            <!-- Formação -->
-            <div>
-              <h2 class="text-3xl font-bold text-gray-900 mb-8">Formação</h2>
-              
-              <div class="space-y-12">
-                ${this.education.map(edu => this.renderEducationItem(edu)).join('')}
-              </div>
-            </div>
+      <section class="${this.classes.section}">
+        <div class="${this.classes.container}">
+          <div class="${this.classes.grid}">
+            ${this.renderExperienceSection()}
+            ${this.renderEducationSection()}
           </div>
         </div>
       </section>
     `;
   }
 
+  /**
+   * Renderiza um item de experiência profissional
+   * @param {Object} experience - Objeto com dados da experiência
+   * @returns {string} HTML do item de experiência
+   */
   renderExperienceItem(experience) {
-    const borderClass = experience.active ? 'border-accent' : 'border-gray-200';
-    const bgClass = experience.active ? 'bg-accent' : 'bg-gray-200';
+    const borderClass = experience.active ? this.classes.timelineItem.activeBorder : this.classes.timelineItem.inactiveBorder;
+    const bgClass = experience.active ? this.classes.timelineItem.activeDot : this.classes.timelineItem.inactiveDot;
     
     const companyDisplay = experience.link && experience.link.trim() !== '' 
-      ? `<a href="${experience.link}" target="_blank" class="text-accent mb-2 hover:text-gray-600 transition-colors animate-pulse">${experience.company}</a>`
-      : `<p class="text-gray-600 mb-2">${experience.company}</p>`;
+      ? `<a href="${experience.link}" target="_blank" class="${this.classes.timelineItem.companyLink}">${experience.company}</a>`
+      : `<p class="${this.classes.timelineItem.company}">${experience.company}</p>`;
     
     return `
-      <div class="relative pl-8 border-l-2 ${borderClass}">
-        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full ${bgClass}"></div>
-        <div class="mb-1 flex items-center">
-          <h3 class="text-xl font-bold text-gray-900">${experience.title}</h3>
-          <span class="ml-auto text-sm text-gray-500">${experience.period}</span>
+      <div class="${this.classes.timelineItem.wrapper} ${borderClass}">
+        <div class="${this.classes.timelineItem.dot} ${bgClass}"></div>
+        <div class="${this.classes.timelineItem.header}">
+          <h3 class="${this.classes.timelineItem.title}">${experience.title}</h3>
+          <span class="${this.classes.timelineItem.period}">${experience.period}</span>
         </div>
         ${companyDisplay}
-        <p class="text-gray-600">
+        <p class="${this.classes.timelineItem.description}">
           ${experience.description}
         </p>
       </div>
     `;
   }
 
+  /**
+   * Renderiza um item de formação acadêmica ou lista de cursos
+   * @param {Object} education - Objeto com dados da formação
+   * @returns {string} HTML do item de formação
+   */
   renderEducationItem(education) {
-    const borderClass = education.active ? 'border-accent' : 'border-gray-200';
-    const bgClass = education.active ? 'bg-accent' : 'bg-gray-200';
+    const borderClass = education.active ? this.classes.timelineItem.activeBorder : this.classes.timelineItem.inactiveBorder;
+    const bgClass = education.active ? this.classes.timelineItem.activeDot : this.classes.timelineItem.inactiveDot;
     
     let content = '';
     
+    // Verifica se é uma lista de cursos ou uma formação acadêmica
     if (education.courses) {
       content = `
-        <ul class="text-gray-600 space-y-2">
+        <ul class="${this.classes.coursesList}">
           ${education.courses.map(course => 
             `<li>• ${course.link 
-              ? `<a href="${course.link}" target="_blank" class="text-accent hover:text-gray-600 transition-colors animate-pulse">${course.name}</a>` 
+              ? `<a href="${course.link}" target="_blank" class="${this.classes.courseLink}">${course.name}</a>` 
               : course.name
             }</li>`
           ).join('')}
@@ -114,23 +170,23 @@ export class ExperienceComponent extends BaseComponent {
       `;
     } else {
       const institutionDisplay = education.link && education.link.trim() !== '' 
-        ? `<a href="${education.link}" target="_blank" class="text-accent mb-2 hover:text-gray-600 transition-colors animate-pulse">${education.institution}</a>`
-        : `<p class="text-gray-600 mb-2">${education.institution}</p>`;
+        ? `<a href="${education.link}" target="_blank" class="${this.classes.timelineItem.companyLink}">${education.institution}</a>`
+        : `<p class="${this.classes.timelineItem.company}">${education.institution}</p>`;
         
       content = `
         ${institutionDisplay}
-        <p class="text-gray-600">
+        <p class="${this.classes.timelineItem.description}">
           ${education.description}
         </p>
       `;
     }
     
     return `
-      <div class="relative pl-8 border-l-2 ${borderClass}">
-        <div class="absolute -left-2 top-0 w-4 h-4 rounded-full ${bgClass}"></div>
-        <div class="mb-1 flex items-center">
-          <h3 class="text-xl font-bold text-gray-900">${education.title}</h3>
-          ${education.period ? `<span class="ml-auto text-sm text-gray-500">${education.period}</span>` : ''}
+      <div class="${this.classes.timelineItem.wrapper} ${borderClass}">
+        <div class="${this.classes.timelineItem.dot} ${bgClass}"></div>
+        <div class="${this.classes.timelineItem.header}">
+          <h3 class="${this.classes.timelineItem.title}">${education.title}</h3>
+          ${education.period ? `<span class="${this.classes.timelineItem.period}">${education.period}</span>` : ''}
         </div>
         ${content}
       </div>

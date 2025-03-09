@@ -11,7 +11,6 @@ import { FooterComponent } from './components/footer.js';
 
 // Import services
 import { NavigationService } from './services/navigation.js';
-import { FormService } from './services/form.js';
 
 // Import utilities
 import { ScrollUtils } from './utils/scroll.js';
@@ -52,7 +51,6 @@ class App {
   initServices() {
     // Initialize services
     this.navigationService = new NavigationService();
-    this.formService = new FormService('#contact-form');
   }
 
   setupEventListeners() {
